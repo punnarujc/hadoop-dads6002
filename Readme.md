@@ -12,6 +12,23 @@ start container
 docker compose up -d
 ```
 
+# Project Structure
+
+```text
+.
+├── Readme.md
+├── docker-compose.yml
+├── execute.sh # HDFS execution shell script
+├── hadoop.env
+├── hue.ini
+├── input.txt
+├── mapper.py # HDFS mapper
+├── reducer.py # HDFS reducer
+├── spark.sh # Spark execution shell script
+├── spark_rdd.py # Spark RDD
+└── spark_sql.py # Spark SQL
+```
+
 # MapReduce
 
 modify file `./mapper.py` and `./reducer.py`
@@ -32,20 +49,15 @@ checking result of output file using this command
 ```
 docker exec -it namenode hdfs dfs -cat /user/root/output/part-00000
 ```
-<!--
-# View data in Hive
 
-connect to hive using `localhost:10000`
+# Apache Spark
 
-create table in Hive (modify columns based on output file)
+The project also includes Apache Spark for data processing, using RDD and Spark SQL APIs.
+
+modify `spark_rdd.py` and `spark_sql.py`
+
+run `spark.sh` to submit Spark jobs to the `spark-master` container
 ```
-CREATE EXTERNAL TABLE assignment_01(
-	  person_id INT,
-    district_id INT,
-    avg_income DOUBLE
-)
-ROW FORMAT DELIMITED
-FIELDS TERMINATED BY '\t'
-STORED AS TEXTFILE
-LOCATION '/user/root/output';
-``` -->
+./spark.sh
+```
+> Note: if no permission to execute try `chmod +x ./spark.sh`

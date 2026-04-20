@@ -16,7 +16,6 @@ for line in sys.stdin:
         person_id = parts[0]
         district_id = parts[1]
         income = parts[2]
-
-        # Emit key-value pair: person_id \t district_id \t income
+        # Emit key-value pair: district_id \t income
         # We print to stdout, which Hadoop captures
-        print("{}\t{}\t{}".format(person_id, district_id, income))
+        print("{}\t{}".format(district_id, income))
